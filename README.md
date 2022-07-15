@@ -33,3 +33,9 @@ As someone who has tried (and failed) many times to start journaling, William Ga
 MoodMe to address the issues he came across.  Like many university students,  
 William struggled to find the time to journal - much less make an organized and visually  
 pleasing one.  MoodMe is his answer to that problem.
+
+### User Stories
+- As a user, I want to be able to add entries to my journal
+- As a user, I want to be able to categorize different entries based on mood
+- As a user, I want to be able to see a summary of my past entries sorted by category
+- As a user, I want to be able to visualize the mood of my entries over time
