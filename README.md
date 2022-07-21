@@ -6,7 +6,7 @@ But papers get scattered, you type things down and forget about them, and lookin
 through past entries becomes more exhausting than counting individual grains of sand.  
 
 "Talked about the project with Johnson" - what does that even mean?  
-Was it exciting or a snooze-fest?  You'll never be able to tell; you might as well just give up.  
+Was it exciting or a snooze-fest?  You'll never be able to tell; you might as well give up.  
 This journaling idea was stupid in the first place.  It's a *disaster*.
 
 That's where MoodMe comes in.
@@ -18,8 +18,8 @@ MoodMe is a Java desktop application that helps you organize your journaling.
 It allows you to:
 - **Add** entries to your journal.
 - **Categorize** entries based on emotion.
-- **View** past entries sorted by category.
-- **Visualize** how your mood changes over time.
+- **View** past entries by category.
+- **Eliminate** writer's block with journaling prompts.
 
 ### Who will use MoodMe?
 
@@ -37,5 +37,5 @@ pleasing one.  MoodMe is his answer to that problem.
 ### User Stories
 - As a user, I want to be able to add entries to my journal
 - As a user, I want to be able to categorize different entries based on mood
-- As a user, I want to be able to see a summary of my past entries sorted by category
-- As a user, I want to be able to visualize the mood of my entries over time
+- As a user, I want to be able to see a summary of my past entries in a specific category
+- As a user, I want to be able to get a journaling prompt when I can't think of anything to write
