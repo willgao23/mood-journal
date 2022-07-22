@@ -19,7 +19,7 @@ It allows you to:
 - **Add** entries to your journal.
 - **Categorize** entries based on emotion.
 - **View** past entries by category.
-- **Eliminate** writer's block with journaling prompts.
+- **Remove** past entries.
 
 ### Who will use MoodMe?
 
@@ -38,4 +38,4 @@ pleasing one.  MoodMe is his answer to that problem.
 - As a user, I want to be able to add entries to my journal
 - As a user, I want to be able to categorize different entries based on mood
 - As a user, I want to be able to see a summary of my past entries in a specific category
-- As a user, I want to be able to get a journaling prompt when I can't think of anything to write
+- As a user, I want to be able to remove past entries
