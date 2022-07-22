@@ -3,8 +3,8 @@ package model;
 //Represents a journal entry with content, an ID number, and a mood
 public class Entry {
 
-    //EFFECTS: constructs a new entry with no content, ID number, or mood type
-    public Entry() {
+    //EFFECTS: constructs a new entry with given content, ID number, and mood type
+    public Entry(String content, int id, MoodType mood) {
         //stub
     }
 
@@ -17,7 +17,7 @@ public class Entry {
 
     //REQUIRES: id >= 0
     //MODIFIES: this
-    //EFFECTS: change the entry's title to the given title
+    //EFFECTS: change the entry's ID number to the given ID number
     public void setIdNumber(int id) {
         //stub
     }
@@ -34,7 +34,7 @@ public class Entry {
         return ""; //stub
     }
 
-    //EFFECTS: return the title of the entry
+    //EFFECTS: return the ID number of the entry
     public int getIdNumber() {
         return 0; //stub
     }
