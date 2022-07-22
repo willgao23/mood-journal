@@ -1,9 +1,9 @@
 package model;
 
-//Represents a journal entry with content, a title, and a mood
+//Represents a journal entry with content, an ID number, and a mood
 public class Entry {
 
-    //EFFECTS: constructs a new entry with no content, title, or mood type
+    //EFFECTS: constructs a new entry with no content, ID number, or mood type
     public Entry() {
         //stub
     }
@@ -15,10 +15,10 @@ public class Entry {
         //stub
     }
 
-    //REQUIRES: title != "", title length <= TITLE_CHARACTER_LIMIT
+    //REQUIRES: id >= 0
     //MODIFIES: this
     //EFFECTS: change the entry's title to the given title
-    public void setTitle(String title) {
+    public void setIdNumber(int id) {
         //stub
     }
 
@@ -35,8 +35,8 @@ public class Entry {
     }
 
     //EFFECTS: return the title of the entry
-    public String getTitle() {
-        return ""; //stub
+    public int getIdNumber() {
+        return 0; //stub
     }
 
     //EFFECTS: return the mood category of the entry
