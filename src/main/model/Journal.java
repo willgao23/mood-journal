@@ -11,44 +11,29 @@ public class Journal {
     }
 
     //MODIFIES: this
-    //EFFECTS: add entry to the correct list based on its MoodType and add it to the all entries list
-    // return true if adding is successful; otherwise return false
+    //EFFECTS: if no entry in the journal has the same ID as the given entry:
+    //add given entry to the journal and return true.
+    //Otherwise, do nothing and return false.
     public boolean addEntry(Entry entry) {
-        return true; //stub
+        return false; //stub
     }
 
-    //EFFECTS: returns a random journal prompt from those listed in JournalPrompts
-    public String getRandomJournalPrompt() {
-        return ""; //stub
+    //MODIFIES: this
+    //EFFECTS: if an entry with the given ID exists in the journal:
+    //remove that entry and return true.
+    //Otherwise, do nothing and return false.
+    public boolean removeEntry(int id) {
+        return false; //stub
     }
 
-    //EFFECTS: return the list of entries categorized as HAPPY in the journal
-    public List<Entry> getHappyEntries() {
+    //EFFECTS: returns all entries in the journal
+    public List<Entry> getEntries() {
         return null; //stub
     }
 
-    //EFFECTS: return the list of entries categorized as SCARED in the journal
-    public List<Entry> getScaredEntries() {
+    //EFFECTS: returns all entries in the journal of the given mood type
+    public List<Entry> getEntriesOfMoodType(MoodType mood) {
         return null; //stub
     }
 
-    //EFFECTS: return the list of entries categorized as ANGRY in the journal
-    public List<Entry> getAngryEntries() {
-        return null; //stub
-    }
-
-    //EFFECTS: return the list of entries categorized as DISGUSTED in the journal
-    public List<Entry> getDisgustedEntries() {
-        return null; //stub
-    }
-
-    //EFFECTS: return the list of entries categorized as SAD in the journal
-    public List<Entry> getSadEntries() {
-        return null; //stub
-    }
-
-    //EFFECTS: return a list of all entries in the journal
-    public List<Entry> getAllEntries() {
-        return null; //stub
-    }
 }
