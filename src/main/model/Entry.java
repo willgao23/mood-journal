@@ -13,7 +13,7 @@ public class Entry {
         setMood(mood);
     }
 
-    //REQUIRES: content != "", content length <= CONTENT_CHARACTER_LIMIT
+    //REQUIRES: content != ""
     //MODIFIES: this
     //EFFECTS: change the entry's content to the given string
     public void setContent(String content) {
