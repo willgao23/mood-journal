@@ -1,4 +1,4 @@
 package exceptions;
 
-public class NoEntriesOfTypeException extends NoEntriesException {
+public class NoEntriesOfTypeException extends Exception {
 }

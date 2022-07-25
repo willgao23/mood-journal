@@ -136,11 +136,11 @@ public class JournalApp {
 
         int inputInt = input.nextInt();
         if (inputInt == 6) {
-            try {
+            if (!(myJournal.getEntries().size() == 0)) {
                 for (Entry e : myJournal.getEntries()) {
                     printEntries(e);
                 }
-            } catch (NoEntriesAtAllException e) {
+            } else {
                 System.out.println("\nYou have no entries in your journal.");
             }
         } else {
@@ -181,7 +181,7 @@ public class JournalApp {
         int inputInt = input.nextInt();
         try {
             myJournal.removeEntry(inputInt);
-            System.out.println("Entry " + inputInt + " has been removed from your mood journal.");
+            System.out.println("\nEntry " + inputInt + " has been removed from your mood journal.");
         } catch (RemoveEntryNotInJournalException e) {
             System.out.println("\nThe entry ID you entered is not in your journal.");
         }

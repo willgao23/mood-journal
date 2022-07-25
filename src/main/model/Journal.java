@@ -65,10 +65,7 @@ public class Journal {
     }
 
     //EFFECTS: returns all entries in the journal
-    public List<Entry> getEntries() throws NoEntriesAtAllException {
-        if (journalEntries.size() == 0) {
-            throw new NoEntriesAtAllException();
-        }
+    public List<Entry> getEntries() {
         return journalEntries;
     }
 
