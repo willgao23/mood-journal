@@ -1,5 +1,6 @@
 package ui;
 
+import exceptions.*;
 import model.*;
 
 import java.util.*;
@@ -89,10 +90,17 @@ public class JournalApp {
         System.out.println("\nPLease enter an ID number for your entry:");
         idNumber = input.nextInt();
 
-        entry = new Entry(content, idNumber, mood);
-        myJournal.addEntry(entry);
-
-        System.out.println("\nEntry " + idNumber + " has been added to your mood journal.");
+        try {
+            entry = new Entry(content, idNumber, mood);
+            myJournal.addEntry(entry);
+            System.out.println("\nEntry " + idNumber + " has been added to your mood journal.");
+        } catch (EmptyContentException e) {
+            System.out.println("\nPlease do not leave the content of your entry empty.");
+        } catch (NegativeIDException e) {
+            System.out.println("\nPlease use a positive integer as your journal ID.");
+        } catch (InvalidMoodException e) {
+            System.out.println("\nPlease select an valid mood type.");
+        }
     }
 
     //EFFECTS: prints out a list of moods and their integer inputs
@@ -107,40 +115,61 @@ public class JournalApp {
     //EFFECTS: returns the appropriate mood from a given entry
     private MoodType getMoodFromInput(int input) {
         switch (input) {
-            case 1 :
+            case 1:
                 return MoodType.HAPPY;
-            case 2 :
+            case 2:
                 return MoodType.SCARED;
-            case 3 :
+            case 3:
                 return MoodType.ANGRY;
-            case 4 :
+            case 4:
                 return MoodType.DISGUSTED;
-            default :
+            case 5:
                 return MoodType.SAD;
+            default:
+                return MoodType.INVALID;
         }
     }
 
     //EFFECTS: prompts the user to select the category of past entry they would like to view
     private void doViewPastEntries() {
+        printViewEntriesPrompt();
+
+        int inputInt = input.nextInt();
+        if (inputInt == 6) {
+            try {
+                for (Entry e : myJournal.getEntries()) {
+                    printEntries(e);
+                }
+            } catch (NoEntriesAtAllException e) {
+                System.out.println("\nYou have no entries in your journal.");
+            }
+        } else {
+            try {
+                for (Entry e : myJournal.getEntriesOfMoodType(getMoodFromInput(inputInt))) {
+                    printEntries(e);
+                }
+            } catch (NoEntriesOfTypeException e) {
+                System.out.println("\nYou have no entries with the mood "
+                        + getMoodFromInput(inputInt).toString().toLowerCase() + " in your journal");
+            } catch (InvalidMoodException e) {
+                System.out.println("\nPlease select a valid option.");
+            }
+        }
+    }
+
+    //EFFECTS: prints the user prompt after they select to view past entries
+    private void printViewEntriesPrompt() {
         System.out.println("\nYou selected: view past entries");
         System.out.println("\nPlease select the entry category you would like to view:");
         printMoodList();
         System.out.println("\t6 - View all entries");
+    }
 
-        int inputInt = input.nextInt();
-        if (inputInt == 6) {
-            for (Entry e : myJournal.getEntries()) {
-                System.out.println("\nEntry " + e.getIdNumber());
-                System.out.println("Mood: " + e.getMood());
-                System.out.println(e.getContent());
-            }
-        } else {
-            for (Entry e : myJournal.getEntriesOfMoodType(getMoodFromInput(inputInt))) {
-                System.out.println("\nEntry " + e.getIdNumber());
-                System.out.println("Mood: " + e.getMood());
-                System.out.println(e.getContent());
-            }
-        }
+    //EFFECTS: prints out an entry's ID, mood, and content
+    private void printEntries(Entry e) {
+        System.out.println("\nEntry " + e.getIdNumber());
+        System.out.println("Mood: " + e.getMood());
+        System.out.println(e.getContent());
     }
 
     //MODIFIES: this
@@ -150,9 +179,12 @@ public class JournalApp {
         System.out.println("\nEnter the ID number of the entry you would like to remove:");
 
         int inputInt = input.nextInt();
-        myJournal.removeEntry(inputInt);
-
-        System.out.println("Entry " + inputInt + " has been removed from your mood journal.");
+        try {
+            myJournal.removeEntry(inputInt);
+            System.out.println("Entry " + inputInt + " has been removed from your mood journal.");
+        } catch (RemoveEntryNotInJournalException e) {
+            System.out.println("\nThe entry ID you entered is not in your journal.");
+        }
     }
 
 }

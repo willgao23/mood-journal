@@ -1,5 +1,7 @@
 package model;
 
+import exceptions.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,34 +30,46 @@ public class Journal {
         return true;
     }
 
-    //REQUIRES: an entry with the given ID exists in the journal
     //MODIFIES: this
     //EFFECTS: remove the entry with the given ID from the journal
-    public void removeEntry(int id) {
-        Entry entryToRemove = new Entry("", 111, HAPPY);
-        for (Entry e : journalEntries) {
-            if (e.getIdNumber() == id) {
-                entryToRemove = e;
+    public void removeEntry(int id) throws RemoveEntryNotInJournalException {
+        int initialSize = journalEntries.size();
+        for (int i = 0; i < journalEntries.size(); i++) {
+            if (journalEntries.get(i).getIdNumber() == id) {
+                journalEntries.remove(i);
             }
         }
-        journalEntries.remove(entryToRemove);
+        if (initialSize == journalEntries.size()) {
+            throw new RemoveEntryNotInJournalException();
+        }
     }
 
-    //REQUIRES: there is at least one entry of the given mood type in the journal
     //EFFECTS: returns all entries in the journal of the given mood type
-    public List<Entry> getEntriesOfMoodType(MoodType mood) {
+    public List<Entry> getEntriesOfMoodType(MoodType mood) throws NoEntriesOfTypeException, InvalidMoodException {
         List<Entry> entriesOfSpecificMood = new ArrayList<>();
+
+        if (mood.equals(INVALID)) {
+            throw new InvalidMoodException();
+        }
+
         for (Entry e : journalEntries) {
             if (e.getMood().equals(mood)) {
                 entriesOfSpecificMood.add(e);
             }
         }
+
+        if (entriesOfSpecificMood.size() == 0) {
+            throw new NoEntriesOfTypeException();
+        }
         return entriesOfSpecificMood;
     }
 
     //EFFECTS: returns all entries in the journal
-    public List<Entry> getEntries() {
-        return journalEntries; //stub
+    public List<Entry> getEntries() throws NoEntriesAtAllException {
+        if (journalEntries.size() == 0) {
+            throw new NoEntriesAtAllException();
+        }
+        return journalEntries;
     }
 
 }
