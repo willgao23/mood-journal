@@ -89,14 +89,16 @@ public class JournalTest {
 
     @Test
     public void testRemoveEntryExpectRemoveEntryNotInJournalException() {
+        testJournal.addEntry(testEntry1);
+
         try {
-            testJournal.removeEntry(111);
+            testJournal.removeEntry(112);
             fail("RemoveEntryNotInJournalException was not thrown!");
         } catch (RemoveEntryNotInJournalException e) {
 
         }
 
-        assertEquals(0, testJournal.getEntries().size());
+        assertEquals(1, testJournal.getEntries().size());
     }
 
     @Test
