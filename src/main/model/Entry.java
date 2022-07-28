@@ -1,9 +1,11 @@
 package model;
 
 import exceptions.*;
+import org.json.JSONObject;
+import persistence.Writable;
 
 //Represents a journal entry with content, an ID number, and a mood
-public class Entry {
+public class Entry implements Writable {
     private String content;
     private int idNumber;
     private MoodType mood;
@@ -59,5 +61,14 @@ public class Entry {
     //EFFECTS: return the mood category of the entry
     public MoodType getMood() {
         return mood;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("content", content);
+        json.put("idNumber", idNumber);
+        json.put("mood", mood);
+        return json;
     }
 }

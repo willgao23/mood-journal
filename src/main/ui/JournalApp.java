@@ -2,24 +2,31 @@ package ui;
 
 import exceptions.*;
 import model.*;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.*;
 
 // based on Teller app; link below
 // https://github.students.cs.ubc.ca/CPSC210/TellerApp
 // Mood journal application
 public class JournalApp {
+    private static final String JSON_STORE = "./data/journal.json";
     private Journal myJournal;
     private Scanner input;
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
 
     //EFFECTS: runs the journal application
-    public JournalApp() {
+    public JournalApp() throws FileNotFoundException {
         runJournal();
     }
 
     //MODIFIES: this
     //EFFECTS: processes user input
-    private void runJournal() {
+    private void runJournal() throws FileNotFoundException {
         boolean keepGoing = true;
         String command = null;
 
@@ -41,11 +48,13 @@ public class JournalApp {
     }
 
     //MODIFIES: this
-    //EFFECTS: initializes journal and scanner
+    //EFFECTS: initializes journal, scanner, jsonReader, and jsonWriter
     private void init() {
         myJournal = new Journal();
         input = new Scanner(System.in);
         input.useDelimiter("\n");
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
     }
 
     //EFFECTS: displays menu of options to user
@@ -54,6 +63,8 @@ public class JournalApp {
         System.out.println("\ta - add a journal entry");
         System.out.println("\tv - view past entries");
         System.out.println("\tr - remove a past entry");
+        System.out.println("\ts - save journal to file");
+        System.out.println("\tl - load journal from file");
         System.out.println("\tq - quit");
     }
 
@@ -66,6 +77,10 @@ public class JournalApp {
             doViewPastEntries();
         } else if (command.equals("r")) {
             doRemovePastEntry();
+        } else if (command.equals("s")) {
+            saveJournal();
+        } else if (command.equals("l")) {
+            loadJournal();
         } else {
             System.out.println("Please enter a valid command");
         }
@@ -184,6 +199,35 @@ public class JournalApp {
             System.out.println("\nEntry " + inputInt + " has been removed from your mood journal.");
         } catch (RemoveEntryNotInJournalException e) {
             System.out.println("\nThe entry ID you entered is not in your journal.");
+        }
+    }
+
+    //EFFECTS: saves the journal to file
+    private void saveJournal() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(myJournal);
+            jsonWriter.close();
+            System.out.println("\nSuccessfully saved your journal to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("\nUnable to write to file: " + JSON_STORE);
+        }
+    }
+
+    //MODIFIES: this
+    //EFFECTS: loads journal from file
+    private void loadJournal() {
+        try {
+            myJournal = jsonReader.read();
+            System.out.println("\nSuccessfully loaded your journal from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("\nUnable to read from file: " + JSON_STORE);
+        } catch (NegativeIDException e) {
+            System.out.println("\nThe journal you are trying to load contains a negative entry ID");
+        } catch (EmptyContentException e) {
+            System.out.println("\nThe journal you are trying to load contains an entry with no content");
+        } catch (InvalidMoodException e) {
+            System.out.println("\nThe journal you are trying to load contains an entry with an invalid mood");
         }
     }
 

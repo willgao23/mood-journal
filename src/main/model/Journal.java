@@ -1,6 +1,9 @@
 package model;
 
 import exceptions.*;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +11,7 @@ import java.util.List;
 import static model.MoodType.*;
 
 //Represents a mood journal with entries organized by emotion
-public class Journal {
+public class Journal implements Writable {
     private List<Entry> journalEntries;
 
     //EFFECTS: constructs a new journal with no entries
@@ -72,4 +75,21 @@ public class Journal {
         return journalEntries;
     }
 
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("entries", entriesToJson());
+        return json;
+    }
+
+    //EFFECTS: returns entries in this journal as a JSON array
+    private JSONArray entriesToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Entry e: journalEntries) {
+            jsonArray.put(e.toJson());
+        }
+
+        return jsonArray;
+    }
 }
