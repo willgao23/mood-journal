@@ -1,0 +1,14 @@
+{
+ "entries": [
+   {
+      "content": "I had a great day!",
+      "idNumber": "111",
+      "mood": "HAPPY"
+   },
+   {
+      "content": "I got scared by my brother today",
+      "idNumber": "222",
+      "mood": "SCARED"
+   }
+ ]
+}
