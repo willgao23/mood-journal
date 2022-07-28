@@ -39,3 +39,5 @@ pleasing one.  MoodMe is his answer to that problem.
 - As a user, I want to be able to categorize different entries based on mood
 - As a user, I want to be able to see a summary of my past entries in a specific category
 - As a user, I want to be able to remove past entries
+- As a user, I want to be able to save my journal to file
+- As a user, I want to be able to load my journal from file
