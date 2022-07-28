@@ -32,6 +32,7 @@ public class Journal {
 
     //MODIFIES: this
     //EFFECTS: remove the entry with the given ID from the journal
+    //throws RemoveEntryNotInJournalException if there is no entry with the given ID in the journal
     public void removeEntry(int id) throws RemoveEntryNotInJournalException {
         int initialSize = journalEntries.size();
         for (int i = 0; i < journalEntries.size(); i++) {
@@ -45,6 +46,8 @@ public class Journal {
     }
 
     //EFFECTS: returns all entries in the journal of the given mood type
+    //throws InvalidMoodException if the given mood is invalid
+    //throws NoEntriesOfTypeException if there are no entries of the given type in the journal
     public List<Entry> getEntriesOfMoodType(MoodType mood) throws NoEntriesOfTypeException, InvalidMoodException {
         List<Entry> entriesOfSpecificMood = new ArrayList<>();
 

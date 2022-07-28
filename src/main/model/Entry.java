@@ -18,6 +18,7 @@ public class Entry {
 
     //MODIFIES: this
     //EFFECTS: change the entry's content to the given string
+    //throws EmptyContentException if no content is added
     public void setContent(String content) throws EmptyContentException {
         if (content.equals("")) {
             throw new EmptyContentException();
@@ -27,6 +28,7 @@ public class Entry {
 
     //MODIFIES: this
     //EFFECTS: change the entry's ID number to the given ID number
+    //throws NegativeIDException if the given ID is negative
     public void setIdNumber(int id) throws NegativeIDException {
         if (id < 0) {
             throw new NegativeIDException();
@@ -36,6 +38,7 @@ public class Entry {
 
     //MODIFIES: this
     //EFFECTS: change the entry's mood type to the given mood
+    //thrown InvalidMoodException if the given MoodType is invalid
     public void setMood(MoodType mood) throws InvalidMoodException {
         if (mood.equals(MoodType.INVALID)) {
             throw new InvalidMoodException();
