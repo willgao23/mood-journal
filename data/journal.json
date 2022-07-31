@@ -1,5 +1,12 @@
-{"entries": [{
-    "mood": "SCARED",
-    "idNumber": 111,
-    "content": "BEES!"
-}]}
+{"entries": [
+    {
+        "mood": "SAD",
+        "idNumber": 111,
+        "content": "I had a sad day"
+    },
+    {
+        "mood": "HAPPY",
+        "idNumber": 222,
+        "content": "I had a happy day"
+    }
+]}

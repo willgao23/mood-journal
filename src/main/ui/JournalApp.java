@@ -18,6 +18,10 @@ public class JournalApp {
     private Scanner input;
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
+    private String content;
+    private MoodType mood;
+    private int idNumber;
+    private Entry entry;
 
     //EFFECTS: runs the journal application
     public JournalApp() throws FileNotFoundException {
@@ -89,11 +93,6 @@ public class JournalApp {
     //MODIFIES: this
     //EFFECTS: prompts the user to add an entry to their journal
     private void doAddEntry() {
-        String content;
-        MoodType mood;
-        int idNumber;
-        Entry entry;
-
         System.out.println("\nYou selected: add a journal entry");
         System.out.println("Write your entry below:");
         content = input.next();
@@ -107,8 +106,11 @@ public class JournalApp {
 
         try {
             entry = new Entry(content, idNumber, mood);
-            myJournal.addEntry(entry);
-            System.out.println("\nEntry " + idNumber + " has been added to your mood journal.");
+            if (myJournal.addEntry(entry)) {
+                System.out.println("\nEntry " + idNumber + " has been added to your mood journal.");
+            } else {
+                System.out.println("\nThere is already an entry with that ID number in your journal.");
+            }
         } catch (EmptyContentException e) {
             System.out.println("\nPlease do not leave the content of your entry empty.");
         } catch (NegativeIDException e) {
