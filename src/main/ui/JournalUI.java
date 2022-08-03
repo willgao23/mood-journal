@@ -10,15 +10,16 @@ public class JournalUI extends JFrame {
 
     private Journal journal;
     private ActionPanel ap;
-//    private MainPanel mp;
+    private MainPanel mp;
 
     //EFFECTS: constructs main window in which journal will be displayed
     public JournalUI() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         journal = new Journal();
-//        mp = new MainPanel(journal);
-        ap = new ActionPanel(journal);
+        mp = new MainPanel(journal);
+        ap = new ActionPanel(journal, mp);
         add(ap, BorderLayout.NORTH);
+        add(mp);
         pack();
         centreOnScreen();
         setVisible(true);

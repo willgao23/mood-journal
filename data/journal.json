@@ -1,12 +1,37 @@
 {"entries": [
     {
-        "mood": "Scared",
-        "idNumber": 13,
-        "content": "BEES!"
+        "mood": "Happy",
+        "idNumber": 12,
+        "content": "Hello"
+    },
+    {
+        "mood": "Sad",
+        "idNumber": 31,
+        "content": "Today I had a sad day"
     },
     {
         "mood": "Happy",
-        "idNumber": 9,
-        "content": "Cooked roast pork"
+        "idNumber": 2,
+        "content": "Hallo"
+    },
+    {
+        "mood": "Scared",
+        "idNumber": 130,
+        "content": "BEES!"
+    },
+    {
+        "mood": "Angry",
+        "idNumber": 111,
+        "content": "Wasted time"
+    },
+    {
+        "mood": "Happy",
+        "idNumber": 222,
+        "content": "Weekend trip with friends"
+    },
+    {
+        "mood": "Happy",
+        "idNumber": 142,
+        "content": "Ate great food"
     }
 ]}

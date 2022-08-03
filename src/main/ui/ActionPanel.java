@@ -14,7 +14,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 
 // Represents the panel where all the actionable buttons are displayed
 public class ActionPanel extends JPanel implements ActionListener {
@@ -25,6 +24,7 @@ public class ActionPanel extends JPanel implements ActionListener {
     private static final Color secondary = new Color(198, 226, 233);
     private static final Color highlight = new Color(255, 215, 112);
     private Journal journal;
+    private MainPanel mp;
     private JButton addButton;
     private JButton removeButton;
     private JButton saveButton;
@@ -35,8 +35,10 @@ public class ActionPanel extends JPanel implements ActionListener {
     private MoodType mood;
     private String idNumber;
 
-    public ActionPanel(Journal j) {
+    //EFFECTS: constructs a panel with add, remove, save, and load buttons
+    public ActionPanel(Journal j, MainPanel mp) {
         journal = j;
+        this.mp = mp;
         setBackground(primary);
         addButton = new JButton("Add Entry");
         addButton.setActionCommand("add");
@@ -56,6 +58,8 @@ public class ActionPanel extends JPanel implements ActionListener {
         jsonReader = new JsonReader(JSON_STORE);
     }
 
+    //MODIFIES: this, button
+    //EFFECTS: formats a button and adds it to the panel
     private void initializeButton(JButton button) {
         button.setVerticalTextPosition(AbstractButton.CENTER);
         button.setHorizontalTextPosition(AbstractButton.CENTER);
@@ -65,6 +69,7 @@ public class ActionPanel extends JPanel implements ActionListener {
         add(button);
     }
 
+    //EFFECTS: processes button presses
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("add")) {
             addAction();
@@ -77,13 +82,19 @@ public class ActionPanel extends JPanel implements ActionListener {
         }
     }
 
+    //MODIFIES: this
+    //EFFECTS: prompts the user to add an entry to their journal
     private void addAction() {
         addEntryDialogSequence();
 
         try {
             int intIdNumber = Integer.parseInt(idNumber);
             Entry entry = new Entry(content, intIdNumber, mood);
-            journal.addEntry(entry);
+            if (!journal.addEntry(entry)) {
+                JOptionPane.showMessageDialog(this, "There is an already an entry with that "
+                        + "ID Number in your journal", "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
+            mp.update(journal);
         } catch (EmptyContentException e) {
             JOptionPane.showMessageDialog(this, "Please do not leave the content "
                             + "of your entry empty.", "ERROR", JOptionPane.ERROR_MESSAGE);
@@ -100,6 +111,7 @@ public class ActionPanel extends JPanel implements ActionListener {
 
     }
 
+    //EFFECTS: creates a sequence of dialog boxes to get user input for adding an entry
     private void addEntryDialogSequence() {
         MoodType[] possibilities = {MoodType.Happy, MoodType.Scared, MoodType.Angry, MoodType.Disgusted, MoodType.Sad};
         content = (String)JOptionPane.showInputDialog(this, "Write your entry below:",
@@ -112,6 +124,8 @@ public class ActionPanel extends JPanel implements ActionListener {
                 null, null);
     }
 
+    //MODIFIES: this;
+    //EFFECTS: prompts the user to remove an entry from their journal
     private void removeAction() {
         idNumber = (String)JOptionPane.showInputDialog(this,
                 "Enter the ID Number of the entry you would like to remove:", "Remove Entry",
@@ -120,6 +134,7 @@ public class ActionPanel extends JPanel implements ActionListener {
         try {
             int intIdNumber = Integer.parseInt(idNumber);
             journal.removeEntry(intIdNumber);
+            mp.update(journal);
         } catch (RemoveEntryNotInJournalException e) {
             JOptionPane.showMessageDialog(this, "The entry ID you entered is "
                             + "not in your journal.",
@@ -130,6 +145,7 @@ public class ActionPanel extends JPanel implements ActionListener {
         }
     }
 
+    //EFFECTS: saves the journal to file
     private void saveAction() {
         try {
             jsonWriter.open();
@@ -141,9 +157,12 @@ public class ActionPanel extends JPanel implements ActionListener {
         }
     }
 
+    //MODIFIES: this
+    //EFFECTS: loads the journal from file
     private void loadAction() {
         try {
             journal = jsonReader.read();
+            mp.update(journal);
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "There was an error in loading your journal",
                     "ERROR", JOptionPane.ERROR_MESSAGE);
