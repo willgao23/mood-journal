@@ -58,8 +58,8 @@ public class JsonWriterTest extends JsonTest {
     public void testWriterGeneralJournal() {
         try {
             Journal j = new Journal();
-            j.addEntry(new Entry("Had lunch with friends", 111, MoodType.HAPPY));
-            j.addEntry(new Entry("Didn't get a promotion", 222, MoodType.SAD));
+            j.addEntry(new Entry("Had lunch with friends", 111, MoodType.Happy));
+            j.addEntry(new Entry("Didn't get a promotion", 222, MoodType.Sad));
             JsonWriter writer = new JsonWriter ("./data/testWriterGeneralJournal.json");
             writer.open();
             writer.write(j);
@@ -69,8 +69,8 @@ public class JsonWriterTest extends JsonTest {
             j = reader.read();
             List<Entry> entries = j.getEntries();
             assertEquals(2, entries.size());
-            checkEntry("Had lunch with friends", 111, MoodType.HAPPY, entries.get(0));
-            checkEntry("Didn't get a promotion", 222, MoodType.SAD, entries.get(1));
+            checkEntry("Had lunch with friends", 111, MoodType.Happy, entries.get(0));
+            checkEntry("Didn't get a promotion", 222, MoodType.Sad, entries.get(1));
         } catch (NegativeIDException e) {
             fail("Unexpected NegativeIDException");
         } catch (EmptyContentException e) {

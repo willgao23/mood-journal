@@ -114,7 +114,7 @@ public class JournalApp {
         } catch (EmptyContentException e) {
             System.out.println("\nPlease do not leave the content of your entry empty.");
         } catch (NegativeIDException e) {
-            System.out.println("\nPlease use a positive integer as your journal ID.");
+            System.out.println("\nPlease use a positive integer as your entry ID.");
         } catch (InvalidMoodException e) {
             System.out.println("\nPlease select an valid mood type.");
         }
@@ -133,17 +133,17 @@ public class JournalApp {
     private MoodType getMoodFromInput(int input) {
         switch (input) {
             case 1:
-                return MoodType.HAPPY;
+                return MoodType.Happy;
             case 2:
-                return MoodType.SCARED;
+                return MoodType.Scared;
             case 3:
-                return MoodType.ANGRY;
+                return MoodType.Angry;
             case 4:
-                return MoodType.DISGUSTED;
+                return MoodType.Disgusted;
             case 5:
-                return MoodType.SAD;
+                return MoodType.Sad;
             default:
-                return MoodType.INVALID;
+                return MoodType.Invalid;
         }
     }
 

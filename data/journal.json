@@ -1,12 +1,12 @@
 {"entries": [
     {
-        "mood": "SAD",
-        "idNumber": 111,
-        "content": "I had a sad day"
+        "mood": "Scared",
+        "idNumber": 13,
+        "content": "BEES!"
     },
     {
-        "mood": "HAPPY",
-        "idNumber": 222,
-        "content": "I had a happy day"
+        "mood": "Happy",
+        "idNumber": 9,
+        "content": "Cooked roast pork"
     }
 ]}

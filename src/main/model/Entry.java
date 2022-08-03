@@ -42,7 +42,7 @@ public class Entry implements Writable {
     //EFFECTS: change the entry's mood type to the given mood
     //thrown InvalidMoodException if the given MoodType is invalid
     public void setMood(MoodType mood) throws InvalidMoodException {
-        if (mood.equals(MoodType.INVALID)) {
+        if (mood.equals(MoodType.Invalid)) {
             throw new InvalidMoodException();
         }
         this.mood = mood;

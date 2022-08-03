@@ -56,8 +56,8 @@ public class JsonReaderTest extends JsonTest {
             Journal j = reader.read();
             List<Entry> entries = j.getEntries();
             assertEquals(2, entries.size());
-            checkEntry("I had a great day!", 111, MoodType.HAPPY, entries.get(0));
-            checkEntry("I got scared by my brother today", 222, MoodType.SCARED, entries.get(1));
+            checkEntry("I had a great day!", 111, MoodType.Happy, entries.get(0));
+            checkEntry("I got scared by my brother today", 222, MoodType.Scared, entries.get(1));
         } catch (NegativeIDException e) {
             fail("Unexpected NegativeIDException");
         } catch (EmptyContentException e) {

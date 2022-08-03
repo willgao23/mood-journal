@@ -15,7 +15,7 @@ public class EntryTest {
     @BeforeEach
     public void setUp() {
         try {
-            testEntry = new Entry("Today, I did nothing!", 111, HAPPY);
+            testEntry = new Entry("Today, I did nothing!", 111, Happy);
         } catch (EmptyContentException e) {
             fail("Unexpected EmptyContentException");
         } catch (NegativeIDException e) {
@@ -29,7 +29,7 @@ public class EntryTest {
     public void testConstructor() {
         assertEquals("Today, I did nothing!", testEntry.getContent());
         assertEquals(111, testEntry.getIdNumber());
-        assertEquals(HAPPY, testEntry.getMood());
+        assertEquals(Happy, testEntry.getMood());
     }
 
     @Test
@@ -105,37 +105,37 @@ public class EntryTest {
     @Test
     public void testSetMoodOnceNothingThrown() {
         try {
-            testEntry.setMood(SAD);
+            testEntry.setMood(Sad);
         } catch (InvalidMoodException e) {
             fail("Unexpected InvalidMoodException");
         }
 
-        assertEquals(SAD, testEntry.getMood());
+        assertEquals(Sad, testEntry.getMood());
     }
 
     @Test
     public void testSetMoodMultipleTimesNothingThrown() {
         try {
-            testEntry.setMood(ANGRY);
-            testEntry.setMood(SCARED);
-            testEntry.setMood(DISGUSTED);
+            testEntry.setMood(Angry);
+            testEntry.setMood(Scared);
+            testEntry.setMood(Disgusted);
         } catch (InvalidMoodException e) {
             fail("Unexpected InvalidMoodException");
         }
 
-        assertEquals(DISGUSTED, testEntry.getMood());
+        assertEquals(Disgusted, testEntry.getMood());
     }
 
     @Test
     public void testSetMoodExpectInvalidMoodException() {
         try {
-            testEntry.setMood(INVALID);
+            testEntry.setMood(Invalid);
             fail("InvalidMoodException was not thrown!");
         } catch (InvalidMoodException e) {
 
         }
 
-        assertEquals(HAPPY, testEntry.getMood());
+        assertEquals(Happy, testEntry.getMood());
     }
 }
 

@@ -17,9 +17,9 @@ public class JournalTest {
     public void setUp() {
         testJournal = new Journal();
         try {
-            testEntry1 = new Entry("Cafeteria ran out of eggs", 111, SAD);
-            testEntry2 = new Entry("Had a birthday party", 112, HAPPY);
-            testEntry3 = new Entry("Played with my dog", 113, HAPPY);
+            testEntry1 = new Entry("Cafeteria ran out of eggs", 111, Sad);
+            testEntry2 = new Entry("Had a birthday party", 112, Happy);
+            testEntry3 = new Entry("Played with my dog", 113, Happy);
         } catch (EmptyContentException e) {
             fail("Unexpected EmptyContentException");
         } catch (NegativeIDException e) {
@@ -108,9 +108,9 @@ public class JournalTest {
         testJournal.addEntry(testEntry3);
 
         try {
-            assertTrue(testJournal.getEntriesOfMoodType(HAPPY).contains(testEntry2));
-            assertTrue(testJournal.getEntriesOfMoodType(HAPPY).contains(testEntry3));
-            assertEquals(2, testJournal.getEntriesOfMoodType(HAPPY).size());
+            assertTrue(testJournal.getEntriesOfMoodType(Happy).contains(testEntry2));
+            assertTrue(testJournal.getEntriesOfMoodType(Happy).contains(testEntry3));
+            assertEquals(2, testJournal.getEntriesOfMoodType(Happy).size());
         } catch (NoEntriesOfTypeException e) {
             fail("Unexpected NoEntriesOfTypeException");
         } catch (InvalidMoodException e) {
@@ -121,7 +121,7 @@ public class JournalTest {
     @Test
     public void testGetEntriesOfMoodTypeExpectInvalidMoodException() {
         try {
-            testJournal.getEntriesOfMoodType(INVALID);
+            testJournal.getEntriesOfMoodType(Invalid);
             fail("InvalidMoodException was not thrown!");
         } catch (InvalidMoodException e) {
 
@@ -133,7 +133,7 @@ public class JournalTest {
     @Test
     public void testGetEntriesOfMoodTypeExpectNoEntriesOfMoodTypeException() {
         try {
-            testJournal.getEntriesOfMoodType(HAPPY);
+            testJournal.getEntriesOfMoodType(Happy);
             fail("NoEntriesOfTypeException was not thrown!");
         } catch (InvalidMoodException e) {
             fail("Unexpected InvalidMoodException");

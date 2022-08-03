@@ -54,7 +54,7 @@ public class Journal implements Writable {
     public List<Entry> getEntriesOfMoodType(MoodType mood) throws NoEntriesOfTypeException, InvalidMoodException {
         List<Entry> entriesOfSpecificMood = new ArrayList<>();
 
-        if (mood.equals(INVALID)) {
+        if (mood.equals(Invalid)) {
             throw new InvalidMoodException();
         }
 
