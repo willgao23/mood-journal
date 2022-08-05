@@ -41,3 +41,14 @@ pleasing one.  MoodMe is his answer to that problem.
 - As a user, I want to be able to remove past entries
 - As a user, I want to be able to save my journal to file
 - As a user, I want to be able to load my journal from file
+
+### Instructions for Grader
+- You can locate the panel that displays all entries added to the journal (Xs added to Y) by looking
+at the panel titled "Entries"
+- You can generate the first required event by clicking the button labelled "Add Entry" 
+and following the pop-up prompts
+- You can generate the second required event by clicking the button labelled "Remove Entry"
+and following the pop-up prompts
+- You can locate my visual component (bar graph) by looking at the panel titled "Entry Mood Tracker"
+- You can save the state of my application by clicking the button labelled "Save Journal"
+- You can reload the state of my application by clicking the button labelled "Load Journal"
