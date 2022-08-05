@@ -21,7 +21,6 @@ public class ActionPanel extends JPanel implements ActionListener {
     private static final int BTTN_WIDTH = 200;
     private static final int BTTN_HEIGHT = 50;
     private static final Color primary = new Color(167, 190, 211);
-    private static final Color secondary = new Color(198, 226, 233);
     private static final Color highlight = new Color(255, 215, 112);
     private Journal journal;
     private MainPanel mp;
