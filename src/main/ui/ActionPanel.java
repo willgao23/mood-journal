@@ -65,6 +65,7 @@ public class ActionPanel extends JPanel implements ActionListener {
         button.setPreferredSize(new Dimension(BTTN_WIDTH, BTTN_HEIGHT));
         button.setBackground(highlight);
         button.addActionListener(this);
+        button.setFont(new Font("Futura", Font.BOLD, 12));
         add(button);
     }
 

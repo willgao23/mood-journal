@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
+// Represents the panel where the journal entries are displayed
 public class EntryPanel extends JPanel {
     private static final Color secondary = new Color(198, 226, 233);
     private static final int PNL_WIDTH = 200;
@@ -18,6 +19,7 @@ public class EntryPanel extends JPanel {
     private Journal journal;
     private List<Entry> entries;
 
+    //EFFECTS: constructs an entry panel with a label, text area, scroll panel, and styling
     public EntryPanel(Journal j) {
         this.journal = j;
         setBackground(secondary);
@@ -32,7 +34,7 @@ public class EntryPanel extends JPanel {
     //EFFECTS: creates a formatted entry panel with a label panel and scroll pane
     private void entryPanelSetUp() {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        setBorder(BorderFactory.createEmptyBorder(-5, 10, 10, 10));
         add(labelPanelLeft);
         add(scrollPane);
         setPreferredSize(new Dimension(PNL_WIDTH, PNL_HEIGHT));

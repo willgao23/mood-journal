@@ -1,10 +1,5 @@
 {"entries": [
     {
-        "mood": "Angry",
-        "idNumber": 111,
-        "content": "Midterm was hard"
-    },
-    {
         "mood": "Scared",
         "idNumber": 222,
         "content": "BEES!"
@@ -13,5 +8,20 @@
         "mood": "Happy",
         "idNumber": 333,
         "content": "Weekend trip with friends"
+    },
+    {
+        "mood": "Angry",
+        "idNumber": 444,
+        "content": "Graph is not working"
+    },
+    {
+        "mood": "Sad",
+        "idNumber": 555,
+        "content": "Didn't eat dinner"
+    },
+    {
+        "mood": "Angry",
+        "idNumber": 111,
+        "content": "Ruined my habits again"
     }
 ]}
