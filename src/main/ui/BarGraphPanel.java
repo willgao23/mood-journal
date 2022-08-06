@@ -62,11 +62,11 @@ public class BarGraphPanel extends JPanel {
         initializeLabels(graphics);
 
         if (maxValue == minValue) {
-            return;
+            drawEmptyGraph(graphics);
+        } else {
+            scale = (PNL_HEIGHT - titleHeight - labelHeight) / maxValue;
+            drawGraph(graphics);
         }
-
-        scale = (PNL_HEIGHT - titleHeight - labelHeight) / maxValue;
-        drawGraph(graphics);
     }
 
     //EFFECTS: draws the bars and labels onto the bar graph
@@ -75,6 +75,29 @@ public class BarGraphPanel extends JPanel {
         int barNumber = 0;
         for (Map.Entry<MoodType, Integer> entry : moodsAndValues.entrySet()) {
             calculateBarDimensions(barNumber, entry.getValue());
+            drawBar(graphics);
+
+            int labelWidth = labelFontMetrics.stringWidth(String.valueOf(entry.getKey()));
+            int labelX = (barNumber * (barWidth * 2)) + (barWidth / 2) + (barWidth - labelWidth) / 2;
+            graphics.drawString(String.valueOf(entry.getKey()), labelX, labelY);
+            graphics.drawString(String.valueOf(entry.getValue()), (labelX + labelWidth / 2) - 3,
+                    barY - (labelHeight / 4));
+            graphics.drawLine(barNumber * (barWidth * 2), barY + barHeight,
+                    (barNumber + 1) * (barWidth * 2), barY + barHeight);
+            barNumber++;
+        }
+    }
+
+    //MODIFIES: this
+    //EFFECTS: draws the bars and labels for an empty bar graph
+    private void drawEmptyGraph(Graphics graphics) {
+        graphics.setFont(labelFont);
+        int barNumber = 0;
+        barX = (barNumber * (barWidth * 2)) + (barWidth / 2);
+        barY = PNL_HEIGHT - labelHeight;
+        barHeight = 0;
+        scale = 0;
+        for (Map.Entry<MoodType, Integer> entry : moodsAndValues.entrySet()) {
             drawBar(graphics);
 
             int labelWidth = labelFontMetrics.stringWidth(String.valueOf(entry.getKey()));
