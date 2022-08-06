@@ -58,5 +58,10 @@
         "mood": "Sad",
         "idNumber": 118,
         "content": "Hamster died"
+    },
+    {
+        "mood": "Happy",
+        "idNumber": 429,
+        "content": "Ate a good sandwich"
     }
 ]}

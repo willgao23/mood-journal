@@ -82,7 +82,8 @@ public class BarGraphPanel extends JPanel {
             graphics.drawString(String.valueOf(entry.getKey()), labelX, labelY);
             graphics.drawString(String.valueOf(entry.getValue()), (labelX + labelWidth / 2) - 3,
                     barY - (labelHeight / 4));
-
+            graphics.drawLine(barNumber * (barWidth * 2), barY + barHeight,
+                    (barNumber + 1) * (barWidth * 2), barY + barHeight);
             barNumber++;
         }
     }
