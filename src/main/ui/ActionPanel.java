@@ -18,8 +18,8 @@ import java.io.FileNotFoundException;
 // Represents the panel where all the actionable buttons are displayed
 public class ActionPanel extends JPanel implements ActionListener {
     private static final String JSON_STORE = "./data/journal.json";
-    private static final int BTTN_WIDTH = 200;
-    private static final int BTTN_HEIGHT = 50;
+    private static final int BTTN_WIDTH = 150;
+    private static final int BTTN_HEIGHT = 35;
     private static final Color primary = new Color(167, 190, 211);
     private static final Color highlight = new Color(255, 215, 112);
     private Journal journal;
@@ -39,6 +39,8 @@ public class ActionPanel extends JPanel implements ActionListener {
         journal = j;
         this.mp = mp;
         setBackground(primary);
+        setLayout(new FlowLayout(FlowLayout.CENTER, 30, 15));
+
         addButton = new JButton("Add Entry");
         addButton.setActionCommand("add");
         removeButton = new JButton("Remove Entry");

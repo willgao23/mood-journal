@@ -12,6 +12,8 @@ public class EntryPanel extends JPanel {
     private static final Color secondary = new Color(198, 226, 233);
     private static final int PNL_WIDTH = 200;
     private static final int PNL_HEIGHT = 400;
+    private static final Font titleFont = new Font("Futura", Font.BOLD, 16);
+    private static final Font bodyFont = new Font("Futura", Font.PLAIN, 12);
     private JPanel labelPanelLeft;
     private JLabel entryPanelLabel;
     private JScrollPane scrollPane;
@@ -54,7 +56,7 @@ public class EntryPanel extends JPanel {
         entries = journal.getEntries();
         entryText = new JTextArea(entriesToString(entries));
         entryText.setBackground(secondary);
-        entryText.setFont(new Font("Futura", Font.PLAIN, 12));
+        entryText.setFont(bodyFont);
         entryText.setEditable(false);
     }
 
@@ -63,7 +65,7 @@ public class EntryPanel extends JPanel {
     private void entryLabelSetUp() {
         labelPanelLeft = new JPanel();
         entryPanelLabel = new JLabel("Entries");
-        entryPanelLabel.setFont(new Font("Futura", Font.BOLD, 16));
+        entryPanelLabel.setFont(titleFont);
         labelPanelLeft.setBackground(secondary);
         labelPanelLeft.add(entryPanelLabel);
     }
