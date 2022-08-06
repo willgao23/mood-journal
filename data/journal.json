@@ -23,5 +23,40 @@
         "mood": "Angry",
         "idNumber": 111,
         "content": "Ruined my habits again"
+    },
+    {
+        "mood": "Angry",
+        "idNumber": 113,
+        "content": "Missed my bus"
+    },
+    {
+        "mood": "Scared",
+        "idNumber": 112,
+        "content": "Watched NOPE in theatres"
+    },
+    {
+        "mood": "Happy",
+        "idNumber": 114,
+        "content": "Called my parents"
+    },
+    {
+        "mood": "Happy",
+        "idNumber": 115,
+        "content": "Ate some great food"
+    },
+    {
+        "mood": "Happy",
+        "idNumber": 116,
+        "content": "Fell in love"
+    },
+    {
+        "mood": "Disgusted",
+        "idNumber": 117,
+        "content": "Stepped in dog poop"
+    },
+    {
+        "mood": "Sad",
+        "idNumber": 118,
+        "content": "Hamster died"
     }
 ]}

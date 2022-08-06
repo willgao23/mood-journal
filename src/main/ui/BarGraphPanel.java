@@ -15,10 +15,9 @@ public class BarGraphPanel extends JPanel {
     private static final Color highlight = new Color(255, 215, 112);
     private static final int PNL_WIDTH = 600;
     private static final int PNL_HEIGHT = 400;
-    private static final int BAR_GAP = 2;
     private static final String title = "Entry Mood Tracker";
     private static final Font titleFont = new Font("Futura", Font.BOLD, 16);
-    private static final Font labelFont = new Font("Futura", Font.PLAIN, 12);
+    private static final Font labelFont = new Font("Futura", Font.PLAIN, 14);
     private int minValue;
     private int maxValue;
     private int titleHeight;
@@ -57,7 +56,7 @@ public class BarGraphPanel extends JPanel {
 
         findMinAndMaxValue();
 
-        barWidth = PNL_WIDTH / moodsAndValues.size();
+        barWidth = (PNL_WIDTH / moodsAndValues.size()) / 2;
         initializeTitle(graphics);
         drawTitle(graphics);
         initializeLabels(graphics);
@@ -78,11 +77,11 @@ public class BarGraphPanel extends JPanel {
             calculateBarDimensions(barNumber, entry.getValue());
             drawBar(graphics);
 
-            int labelWidth = labelFontMetrics.stringWidth(entry.getKey()
-                    + " Entries: " + entry.getValue());
-            int labelX = barNumber * barWidth + (barWidth - labelWidth) / 2;
-            graphics.drawString(entry.getKey() + " Entries: " + entry.getValue(),
-                    labelX, labelY);
+            int labelWidth = labelFontMetrics.stringWidth(String.valueOf(entry.getKey()));
+            int labelX = (barNumber * (barWidth * 2)) + (barWidth / 2) + (barWidth - labelWidth) / 2;
+            graphics.drawString(String.valueOf(entry.getKey()), labelX, labelY);
+            graphics.drawString(String.valueOf(entry.getValue()), (labelX + labelWidth / 2) - 3,
+                    barY - (labelHeight / 4));
 
             barNumber++;
         }
@@ -91,8 +90,8 @@ public class BarGraphPanel extends JPanel {
     //MODIFIES: this
     //EFFECTS: calculates the dimensions of a bar
     private void calculateBarDimensions(int barNumber, int value) {
-        barX = barNumber * barWidth;
-        barY = titleY;
+        barX = (barNumber * (barWidth * 2)) + (barWidth / 2);
+        barY = titleHeight;
         barHeight = Math.round(value * scale);
         barY += Math.round((maxValue - value) * scale);
     }
@@ -100,9 +99,9 @@ public class BarGraphPanel extends JPanel {
     //EFFECTS: draws a bar onto the panel
     private void drawBar(Graphics graphics) {
         graphics.setColor(highlight);
-        graphics.fillRect(barX, barY, barWidth - BAR_GAP, barHeight);
+        graphics.fillRect(barX, barY, barWidth, barHeight);
         graphics.setColor(Color.BLACK);
-        graphics.drawRect(barX, barY, barWidth - BAR_GAP, barHeight);
+        graphics.drawRect(barX, barY, barWidth, barHeight);
     }
 
     //MODIFIES: this
@@ -127,7 +126,7 @@ public class BarGraphPanel extends JPanel {
         int titleWidth = titleFontMetrics.stringWidth(title);
         titleY = titleFontMetrics.getAscent();
         titleX = (PNL_WIDTH - titleWidth) / 2;
-        titleHeight = titleFontMetrics.getHeight();
+        titleHeight = titleFontMetrics.getHeight() + labelHeight;
     }
 
     //EFFECTS: calculates the minimum and maximum value in moodsAndValues
