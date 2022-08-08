@@ -25,6 +25,7 @@ public class BarGraphPanel extends JPanel {
     private int titleX;
     private int labelHeight;
     private FontMetrics labelFontMetrics;
+    private FontMetrics valueFontMetrics;
     private int labelY;
     private int barX;
     private int barY;
@@ -78,9 +79,10 @@ public class BarGraphPanel extends JPanel {
             drawBar(graphics);
 
             int labelWidth = labelFontMetrics.stringWidth(String.valueOf(entry.getKey()));
+            int valueWidth = valueFontMetrics.stringWidth(String.valueOf(entry.getValue()));
             int labelX = (barNumber * (barWidth * 2)) + (barWidth / 2) + (barWidth - labelWidth) / 2;
             graphics.drawString(String.valueOf(entry.getKey()), labelX, labelY);
-            graphics.drawString(String.valueOf(entry.getValue()), (labelX + labelWidth / 2) - 3,
+            graphics.drawString(String.valueOf(entry.getValue()), (labelX + labelWidth / 2) - (valueWidth / 2),
                     barY - (labelHeight / 4));
             graphics.drawLine(barNumber * (barWidth * 2), barY + barHeight,
                     (barNumber + 1) * (barWidth * 2), barY + barHeight);
@@ -101,9 +103,10 @@ public class BarGraphPanel extends JPanel {
             drawBar(graphics);
 
             int labelWidth = labelFontMetrics.stringWidth(String.valueOf(entry.getKey()));
+            int valueWidth = valueFontMetrics.stringWidth(String.valueOf(entry.getValue()));
             int labelX = (barNumber * (barWidth * 2)) + (barWidth / 2) + (barWidth - labelWidth) / 2;
             graphics.drawString(String.valueOf(entry.getKey()), labelX, labelY);
-            graphics.drawString(String.valueOf(entry.getValue()), (labelX + labelWidth / 2) - 3,
+            graphics.drawString(String.valueOf(entry.getValue()), (labelX + labelWidth / 2) - (valueWidth / 2),
                     barY - (labelHeight / 4));
             graphics.drawLine(barNumber * (barWidth * 2), barY + barHeight,
                     (barNumber + 1) * (barWidth * 2), barY + barHeight);
@@ -132,6 +135,7 @@ public class BarGraphPanel extends JPanel {
     //EFFECTS: initializes label dimension and location variables
     private void initializeLabels(Graphics graphics) {
         labelFontMetrics = graphics.getFontMetrics(labelFont);
+        valueFontMetrics = graphics.getFontMetrics(labelFont);
         labelHeight = labelFontMetrics.getHeight();
         labelY = PNL_HEIGHT - labelFontMetrics.getDescent();
     }

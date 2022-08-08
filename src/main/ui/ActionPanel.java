@@ -15,17 +15,16 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.FileNotFoundException;
 
-// Represents the panel where all the actionable buttons are displayed
-public class ActionPanel extends JPanel implements ActionListener {
+// Represents the panel where all the actionable events are displayed and handled
+public class ActionPanel extends JPanel implements ActionListener, MouseMotionListener {
     private static final String JSON_STORE = "./data/journal.json";
-    private static final int BTTN_WIDTH = 150;
-    private static final int BTTN_HEIGHT = 35;
+    private static final int BTTN_WIDTH = 200;
+    private static final int BTTN_HEIGHT = 50;
     private static final Color primary = new Color(167, 190, 211);
     private static final Color highlight = new Color(255, 215, 112);
     private Journal journal;
     private MainPanel mp;
     private JButton addButton;
-    private JButton removeButton;
     private JButton saveButton;
     private JButton loadButton;
     private JsonWriter jsonWriter;
@@ -40,18 +39,17 @@ public class ActionPanel extends JPanel implements ActionListener {
         this.mp = mp;
         setBackground(primary);
         setLayout(new FlowLayout(FlowLayout.CENTER, 30, 15));
+        mp.addMouseMotionListener(this);
+        addMouseMotionListener(this);
 
         addButton = new JButton("Add Entry");
         addButton.setActionCommand("add");
-        removeButton = new JButton("Remove Entry");
-        removeButton.setActionCommand("remove");
         saveButton = new JButton("Save Journal");
         saveButton.setActionCommand("save");
         loadButton = new JButton("Load Journal");
         loadButton.setActionCommand("load");
 
         initializeButton(addButton);
-        initializeButton(removeButton);
         initializeButton(saveButton);
         initializeButton(loadButton);
 
@@ -72,16 +70,27 @@ public class ActionPanel extends JPanel implements ActionListener {
     }
 
     //EFFECTS: processes button presses
+    @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("add")) {
             addAction();
-        } else if (e.getActionCommand().equals("remove")) {
-            removeAction();
         } else if (e.getActionCommand().equals("save")) {
             saveAction();
         } else {
             loadAction();
         }
+    }
+
+    //EFFECTS: prompts the user to remove an entry from their journal on mouse drag
+    @Override
+    public void mouseDragged(MouseEvent e) {
+        removeAction();
+    }
+
+    //EFFECTS: application does nothing on mouse movement
+    @Override
+    public void mouseMoved(MouseEvent e) {
+        //do nothing
     }
 
     //MODIFIES: this
@@ -170,5 +179,4 @@ public class ActionPanel extends JPanel implements ActionListener {
                     "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }
-
 }
