@@ -33,7 +33,7 @@ public class ActionPanel extends JPanel implements ActionListener, MouseMotionLi
     private MoodType mood;
     private String idNumber;
 
-    //EFFECTS: constructs a panel with add, remove, save, and load buttons
+    //EFFECTS: constructs a panel with add, save, and load buttons
     public ActionPanel(Journal j, MainPanel mp) {
         journal = j;
         this.mp = mp;
@@ -122,6 +122,7 @@ public class ActionPanel extends JPanel implements ActionListener, MouseMotionLi
 
     }
 
+    //MODIFIES: this
     //EFFECTS: creates a sequence of dialog boxes to get user input for adding an entry
     private void addEntryDialogSequence() {
         MoodType[] possibilities = {MoodType.Happy, MoodType.Scared, MoodType.Angry, MoodType.Disgusted, MoodType.Sad};
@@ -135,7 +136,7 @@ public class ActionPanel extends JPanel implements ActionListener, MouseMotionLi
                 null, null);
     }
 
-    //MODIFIES: this;
+    //MODIFIES: this
     //EFFECTS: prompts the user to remove an entry from their journal
     private void removeAction() {
         idNumber = (String)JOptionPane.showInputDialog(this,
