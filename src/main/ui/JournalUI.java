@@ -15,7 +15,6 @@ public class JournalUI extends JFrame implements WindowListener {
     private Journal journal;
     private ActionPanel ap;
     private MainPanel mp;
-    private EventLog el;
 
     //EFFECTS: constructs main window in which journal will be displayed
     public JournalUI() {
@@ -46,7 +45,7 @@ public class JournalUI extends JFrame implements WindowListener {
     //EFFECTS: prints to console all the events since the application started when main window is closing
     @Override
     public void windowClosing(WindowEvent e) {
-        printLog(el.getInstance());
+        printLog(EventLog.getInstance());
         System.exit(0);
     }
 

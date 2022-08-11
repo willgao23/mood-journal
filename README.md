@@ -64,3 +64,12 @@ Wed Aug 10 17:05:14 PDT 2022
 Entry added to journal  
 Wed Aug 10 17:05:17 PDT 2022  
 Entry removed from journal
+
+
+### Phase 4: Task 3
+- remove the need for passing Journal as a parameter to all GUI classes to ensure the  
+  same one is accessed by making the journal constructor private and creating a public get instance method
+- make BarGraphPanel adhere to the single responsibility principle by splitting it up into  
+  separate classes for bar graph labels, bar graph bars, and bar graph titles
+- reduce coupling in GUI error messages by pulling out duplicate code into a method so that  
+  the formatting of the dialog boxes stays consistent
