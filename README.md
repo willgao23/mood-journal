@@ -73,3 +73,9 @@ Entry removed from journal
   separate classes for bar graph labels, bar graph bars, and bar graph titles
 - reduce coupling in GUI error messages by pulling out duplicate code into a method so that  
   the formatting of the dialog boxes stays consistent
+- reduce tight coupling with Journal by using the Observable design pattern and implementing necessary methods.   
+Journal would be our concrete subject, and JournalApp, ActionPanel, EntryPanel, and BarGraphPanel  
+would all be concrete observers.
+- change implementation of ActionPanel to not need a field of MoodType by creating a separate method for each  
+dialog box that returns the appropriate type, and calling that method when passing the parameters  
+to create a new Entry.
