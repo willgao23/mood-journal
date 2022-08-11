@@ -63,6 +63,7 @@ public class Entry implements Writable {
         return mood;
     }
 
+    //EFFECTS: adds the fields of an entry to the entry JSONObject and returns it
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();

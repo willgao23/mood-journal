@@ -52,3 +52,15 @@ window and following the pop-up prompt
 - You can locate my visual component (bar graph) by looking at the panel titled "Entry Mood Tracker"
 - You can save the state of my application by clicking the button labelled "Save Journal"
 - You can reload the state of my application by clicking the button labelled "Load Journal"
+
+### Phase 4: Task 2
+Wed Aug 10 17:04:59 PDT 2022  
+Entry added to journal  
+Wed Aug 10 17:05:03 PDT 2022  
+Entry removed from journal  
+Wed Aug 10 17:05:08 PDT 2022  
+Entry added to journal  
+Wed Aug 10 17:05:14 PDT 2022  
+Entry added to journal  
+Wed Aug 10 17:05:17 PDT 2022  
+Entry removed from journal  
