@@ -13,7 +13,6 @@ import static model.MoodType.*;
 //Represents a mood journal with entries organized by emotion
 public class Journal implements Writable {
     private List<Entry> journalEntries;
-    private EventLog eventLog;
 
     //EFFECTS: constructs a new journal with no entries
     public Journal() {
@@ -32,7 +31,7 @@ public class Journal implements Writable {
         }
         journalEntries.add(entry);
         Event addEvent = new Event("Entry added to journal");
-        eventLog.getInstance().logEvent(addEvent);
+        EventLog.getInstance().logEvent(addEvent);
         return true;
     }
 
@@ -45,7 +44,7 @@ public class Journal implements Writable {
             if (journalEntries.get(i).getIdNumber() == id) {
                 journalEntries.remove(i);
                 Event removeEvent = new Event("Entry removed from journal");
-                eventLog.getInstance().logEvent(removeEvent);
+                EventLog.getInstance().logEvent(removeEvent);
             }
         }
         if (initialSize == journalEntries.size()) {

@@ -1,14 +1,9 @@
 package ui;
 
-import model.Entry;
 import model.Journal;
-import model.MoodType;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
 
 // Represents the parent panel holding the bar graph and entry panels
 public class MainPanel extends JPanel {
