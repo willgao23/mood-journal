@@ -19,7 +19,6 @@ public class EntryPanel extends JPanel {
     private JScrollPane scrollPane;
     private JTextArea entryText;
     private Journal journal;
-    private List<Entry> entries;
 
     //EFFECTS: constructs an entry panel with a label, text area, scroll panel, and styling
     public EntryPanel(Journal j) {
@@ -53,8 +52,7 @@ public class EntryPanel extends JPanel {
     //MODIFIES: this
     //EFFECTS: creates a stylized text area to show the
     private void entryTextAreaSetUp() {
-        entries = journal.getEntries();
-        entryText = new JTextArea(entriesToString(entries));
+        entryText = new JTextArea(entriesToString(journal.getEntries()));
         entryText.setBackground(secondary);
         entryText.setFont(bodyFont);
         entryText.setEditable(false);
@@ -84,8 +82,7 @@ public class EntryPanel extends JPanel {
     //MODIFIES: this
     //EFFECTS: updates the list of entries and text field to reflect changes
     public void update(Journal j) {
-        entries = j.getEntries();
-        entryText.setText(entriesToString(entries));
+        entryText.setText(entriesToString(j.getEntries()));
     }
 }
 

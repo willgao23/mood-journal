@@ -15,11 +15,9 @@ public class MainPanel extends JPanel {
     private static final Color primary = new Color(167, 190, 211);
     private EntryPanel entryPanel;
     private BarGraphPanel barGraphPanel;
-    private Journal journal;
 
     //EFFECTS: constructs a panel with an entry panel and bar graph panel
     public MainPanel(Journal j) {
-        this.journal = j;
         this.setBackground(primary);
         entryPanel = new EntryPanel(j);
         barGraphPanel = new BarGraphPanel(j);
