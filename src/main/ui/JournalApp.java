@@ -18,10 +18,6 @@ public class JournalApp {
     private Scanner input;
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
-    private String content;
-    private MoodType mood;
-    private int idNumber;
-    private Entry entry;
 
     //EFFECTS: runs the journal application
     public JournalApp() throws FileNotFoundException {
@@ -95,17 +91,17 @@ public class JournalApp {
     private void doAddEntry() {
         System.out.println("\nYou selected: add a journal entry");
         System.out.println("Write your entry below:");
-        content = input.next();
+        String content = input.next();
 
         System.out.println("\nCategorize your entry as one of the following:");
         printMoodList();
-        mood = getMoodFromInput(input.nextInt());
+        MoodType mood = getMoodFromInput(input.nextInt());
 
         System.out.println("\nPLease enter an ID number for your entry:");
-        idNumber = input.nextInt();
+        int idNumber = input.nextInt();
 
         try {
-            entry = new Entry(content, idNumber, mood);
+            Entry entry = new Entry(content, idNumber, mood);
             if (myJournal.addEntry(entry)) {
                 System.out.println("\nEntry " + idNumber + " has been added to your mood journal.");
             } else {
