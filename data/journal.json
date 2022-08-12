@@ -1,17 +1,42 @@
 {"entries": [
     {
-        "mood": "Happy",
-        "idNumber": 1,
-        "content": "jqfiej"
+        "mood": "Scared",
+        "idNumber": 111,
+        "content": "BEES"
     },
     {
         "mood": "Happy",
-        "idNumber": 2,
-        "content": "qweifjiqjw"
+        "idNumber": 112,
+        "content": "Had a great trip with friends"
+    },
+    {
+        "mood": "Scared",
+        "idNumber": 114,
+        "content": "Watched Nope in theatres"
+    },
+    {
+        "mood": "Sad",
+        "idNumber": 115,
+        "content": "Hamster died"
     },
     {
         "mood": "Angry",
+        "idNumber": 1,
+        "content": "Missed my bus"
+    },
+    {
+        "mood": "Scared",
+        "idNumber": 2,
+        "content": "Ate raw pork"
+    },
+    {
+        "mood": "Sad",
+        "idNumber": 3,
+        "content": "Apples rotted"
+    },
+    {
+        "mood": "Disgusted",
         "idNumber": 4,
-        "content": "qwiejfiwqjfe"
+        "content": "No shower at motel"
     }
 ]}

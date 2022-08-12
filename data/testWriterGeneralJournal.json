@@ -1,11 +1,11 @@
 {"entries": [
     {
-        "mood": "HAPPY",
+        "mood": "Happy",
         "idNumber": 111,
         "content": "Had lunch with friends"
     },
     {
-        "mood": "SAD",
+        "mood": "Sad",
         "idNumber": 222,
         "content": "Didn't get a promotion"
     }
