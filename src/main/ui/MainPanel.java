@@ -12,17 +12,19 @@ public class MainPanel extends JPanel {
     private BarGraphPanel barGraphPanel;
 
     //EFFECTS: constructs a panel with an entry panel and bar graph panel
-    public MainPanel(Journal j) {
+    public MainPanel(Journal journal) {
         this.setBackground(primary);
-        entryPanel = new EntryPanel(j);
-        barGraphPanel = new BarGraphPanel(j);
+        entryPanel = new EntryPanel(journal);
+        barGraphPanel = new BarGraphPanel(journal);
         add(entryPanel);
         add(barGraphPanel);
     }
 
-    //EFFECTS: updates the entry panel and bar graph panel
-    public void update(Journal j) {
-        entryPanel.update(j);
-        barGraphPanel.update(j);
+    public EntryPanel getEntryPanel() {
+        return entryPanel;
+    }
+
+    public BarGraphPanel getBarGraphPanel() {
+        return barGraphPanel;
     }
 }

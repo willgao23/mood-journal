@@ -14,47 +14,46 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.FileNotFoundException;
+import java.util.Observable;
 
 // Represents the panel where all the actionable events are displayed and handled
-public class ActionPanel extends JPanel implements ActionListener, MouseMotionListener {
-    private static final String JSON_STORE = "./data/journal.json";
+public class ActionPanel extends JPanel implements ActionListener {
     private static final int BTTN_WIDTH = 200;
     private static final int BTTN_HEIGHT = 50;
     private static final Color primary = new Color(167, 190, 211);
     private static final Color highlight = new Color(255, 215, 112);
-    private Journal journal;
-    private MainPanel mp;
+    private Actions actions;
     private JButton addButton;
+    private JButton removeButton;
     private JButton saveButton;
     private JButton loadButton;
-    private JsonWriter jsonWriter;
-    private JsonReader jsonReader;
+
     private String content;
     private MoodType mood;
     private String idNumber;
 
     //EFFECTS: constructs a panel with add, save, and load buttons
     public ActionPanel(Journal j, MainPanel mp) {
-        journal = j;
-        this.mp = mp;
+        actions = new Actions(j);
+        actions.addObserver(mp.getEntryPanel());
+        actions.addObserver(mp.getBarGraphPanel());
         setBackground(primary);
-        setLayout(new FlowLayout(FlowLayout.CENTER, 30, 15));
-        mp.addMouseMotionListener(this);
-        addMouseMotionListener(this);
 
         addButton = new JButton("Add Entry");
         addButton.setActionCommand("add");
+        removeButton = new JButton("Remove Entry");
+        removeButton.setActionCommand("remove");
         saveButton = new JButton("Save Journal");
         saveButton.setActionCommand("save");
         loadButton = new JButton("Load Journal");
         loadButton.setActionCommand("load");
 
         initializeButton(addButton);
+        initializeButton(removeButton);
         initializeButton(saveButton);
         initializeButton(loadButton);
 
-        jsonWriter = new JsonWriter(JSON_STORE);
-        jsonReader = new JsonReader(JSON_STORE);
+
     }
 
     //MODIFIES: this, button
@@ -74,23 +73,13 @@ public class ActionPanel extends JPanel implements ActionListener, MouseMotionLi
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("add")) {
             addAction();
+        } else if (e.getActionCommand().equals("remove")) {
+            removeAction();
         } else if (e.getActionCommand().equals("save")) {
             saveAction();
         } else {
             loadAction();
         }
-    }
-
-    //EFFECTS: prompts the user to remove an entry from their journal on mouse drag
-    @Override
-    public void mouseDragged(MouseEvent e) {
-        removeAction();
-    }
-
-    //EFFECTS: application does nothing on mouse movement
-    @Override
-    public void mouseMoved(MouseEvent e) {
-        //do nothing
     }
 
     //MODIFIES: this
@@ -100,12 +89,7 @@ public class ActionPanel extends JPanel implements ActionListener, MouseMotionLi
 
         try {
             int intIdNumber = Integer.parseInt(idNumber);
-            Entry entry = new Entry(content, intIdNumber, mood);
-            if (!journal.addEntry(entry)) {
-                JOptionPane.showMessageDialog(this, "There is an already an entry with that "
-                        + "ID Number in your journal", "ERROR", JOptionPane.ERROR_MESSAGE);
-            }
-            mp.update(journal);
+            actions.addAction(content, intIdNumber, mood);
         } catch (EmptyContentException e) {
             JOptionPane.showMessageDialog(this, "Please do not leave the content "
                             + "of your entry empty.", "ERROR", JOptionPane.ERROR_MESSAGE);
@@ -145,8 +129,7 @@ public class ActionPanel extends JPanel implements ActionListener, MouseMotionLi
 
         try {
             int intIdNumber = Integer.parseInt(idNumber);
-            journal.removeEntry(intIdNumber);
-            mp.update(journal);
+            actions.removeAction(intIdNumber);
         } catch (RemoveEntryNotInJournalException e) {
             JOptionPane.showMessageDialog(this, "The entry ID you entered is "
                             + "not in your journal.",
@@ -160,9 +143,7 @@ public class ActionPanel extends JPanel implements ActionListener, MouseMotionLi
     //EFFECTS: saves the journal to file
     private void saveAction() {
         try {
-            jsonWriter.open();
-            jsonWriter.write(journal);
-            jsonWriter.close();
+            actions.saveAction();
         } catch (FileNotFoundException ex) {
             JOptionPane.showMessageDialog(this, "File not found",
                     "ERROR", JOptionPane.ERROR_MESSAGE);
@@ -173,8 +154,7 @@ public class ActionPanel extends JPanel implements ActionListener, MouseMotionLi
     //EFFECTS: loads the journal from file
     private void loadAction() {
         try {
-            journal = jsonReader.read();
-            mp.update(journal);
+            actions.loadAction();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "There was an error in loading your journal",
                     "ERROR", JOptionPane.ERROR_MESSAGE);

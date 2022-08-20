@@ -6,9 +6,11 @@ import model.Journal;
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 // Represents the panel where the journal entries are displayed
-public class EntryPanel extends JPanel {
+public class EntryPanel extends JPanel implements Observer {
     private static final Color secondary = new Color(198, 226, 233);
     private static final int PNL_WIDTH = 200;
     private static final int PNL_HEIGHT = 400;
@@ -18,14 +20,12 @@ public class EntryPanel extends JPanel {
     private JLabel entryPanelLabel;
     private JScrollPane scrollPane;
     private JTextArea entryText;
-    private Journal journal;
 
     //EFFECTS: constructs an entry panel with a label, text area, scroll panel, and styling
-    public EntryPanel(Journal j) {
-        this.journal = j;
+    public EntryPanel(Journal journal) {
         setBackground(secondary);
         entryLabelSetUp();
-        entryTextAreaSetUp();
+        entryTextAreaSetUp(journal);
         scrollPaneSetUp();
         entryPanelSetUp();
 
@@ -51,7 +51,7 @@ public class EntryPanel extends JPanel {
 
     //MODIFIES: this
     //EFFECTS: creates a stylized text area to show the
-    private void entryTextAreaSetUp() {
+    private void entryTextAreaSetUp(Journal journal) {
         entryText = new JTextArea(entriesToString(journal.getEntries()));
         entryText.setBackground(secondary);
         entryText.setFont(bodyFont);
@@ -79,10 +79,10 @@ public class EntryPanel extends JPanel {
         return entryString;
     }
 
-    //MODIFIES: this
-    //EFFECTS: updates the list of entries and text field to reflect changes
-    public void update(Journal j) {
-        entryText.setText(entriesToString(j.getEntries()));
+    @Override
+    public void update(Observable o, Object arg) {
+        Journal journal = (Journal) arg;
+        entryText.setText(entriesToString(journal.getEntries()));
     }
 }
 

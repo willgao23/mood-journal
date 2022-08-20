@@ -10,7 +10,7 @@ import java.util.*;
 import java.util.List;
 
 // Represents the panel where the bar graph is displayed
-public class BarGraphPanel extends JPanel {
+public class BarGraphPanel extends JPanel implements Observer {
     private static final Color secondary = new Color(198, 226, 233);
     private static final Color highlight = new Color(255, 215, 112);
     private static final int PNL_WIDTH = 600;
@@ -198,10 +198,11 @@ public class BarGraphPanel extends JPanel {
         return entriesOfMoodType;
     }
 
-    //EFFECTS: updates the bar graph to show new values
-    public void update(Journal j) {
+    @Override
+    public void update(Observable o, Object arg) {
+        Journal journal = (Journal) arg;
         moodsAndValues.clear();
-        initializeMoodsAndValues(j);
+        initializeMoodsAndValues(journal);
         repaint();
     }
 
