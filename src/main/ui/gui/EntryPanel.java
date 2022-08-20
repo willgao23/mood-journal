@@ -1,4 +1,4 @@
-package ui;
+package ui.gui;
 
 import model.Entry;
 import model.Journal;
@@ -79,6 +79,7 @@ public class EntryPanel extends JPanel implements Observer {
         return entryString;
     }
 
+    //EFFECTS: updates the entry panel
     @Override
     public void update(Observable o, Object arg) {
         Journal journal = (Journal) arg;

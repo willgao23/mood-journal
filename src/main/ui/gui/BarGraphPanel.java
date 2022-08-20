@@ -1,4 +1,4 @@
-package ui;
+package ui.gui;
 
 import model.Entry;
 import model.Journal;
@@ -198,6 +198,7 @@ public class BarGraphPanel extends JPanel implements Observer {
         return entriesOfMoodType;
     }
 
+    //EFFECTS: updates the bar graph
     @Override
     public void update(Observable o, Object arg) {
         Journal journal = (Journal) arg;

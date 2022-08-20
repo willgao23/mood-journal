@@ -1,20 +1,16 @@
-package ui;
+package ui.gui;
 
 import exceptions.EmptyContentException;
 import exceptions.InvalidMoodException;
 import exceptions.NegativeIDException;
 import exceptions.RemoveEntryNotInJournalException;
-import model.Entry;
 import model.Journal;
 import model.MoodType;
-import persistence.JsonReader;
-import persistence.JsonWriter;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.FileNotFoundException;
-import java.util.Observable;
 
 // Represents the panel where all the actionable events are displayed and handled
 public class ActionPanel extends JPanel implements ActionListener {
@@ -27,10 +23,6 @@ public class ActionPanel extends JPanel implements ActionListener {
     private JButton removeButton;
     private JButton saveButton;
     private JButton loadButton;
-
-    private String content;
-    private MoodType mood;
-    private String idNumber;
 
     //EFFECTS: constructs a panel with add, save, and load buttons
     public ActionPanel(Journal j, MainPanel mp) {
@@ -85,58 +77,44 @@ public class ActionPanel extends JPanel implements ActionListener {
     //MODIFIES: this
     //EFFECTS: prompts the user to add an entry to their journal
     private void addAction() {
-        addEntryDialogSequence();
-
         try {
+            MoodType[] possibilities = {MoodType.Happy, MoodType.Scared,
+                    MoodType.Angry, MoodType.Disgusted, MoodType.Sad};
+            String content = (String) JOptionPane.showInputDialog(this, "Write your entry below:",
+                    "Add Entry 1/3", JOptionPane.PLAIN_MESSAGE, null, null, null);
+            MoodType mood = (MoodType) JOptionPane.showInputDialog(this, "Categorize your entry "
+                            + "as one of the following:", "Add Entry 2/3",
+                    JOptionPane.PLAIN_MESSAGE, null, possibilities, MoodType.Happy);
+            String idNumber = (String) JOptionPane.showInputDialog(this,
+                    "PLease enter an ID number for your entry:", "Add Entry 3/3",
+                    JOptionPane.PLAIN_MESSAGE, null, null, null);
             int intIdNumber = Integer.parseInt(idNumber);
             actions.addAction(content, intIdNumber, mood);
         } catch (EmptyContentException e) {
-            JOptionPane.showMessageDialog(this, "Please do not leave the content "
-                            + "of your entry empty.", "ERROR", JOptionPane.ERROR_MESSAGE);
+            errorMessage("Please do not leave the content of your entry empty.");
         } catch (NegativeIDException e) {
-            JOptionPane.showMessageDialog(this, "Please use a positive integer as "
-                    + "your entry ID.", "ERROR", JOptionPane.ERROR_MESSAGE);
+            errorMessage("Please use a positive integer as your entry ID.");
         } catch (InvalidMoodException e) {
-            JOptionPane.showMessageDialog(this, "Please select an valid mood type.",
-                    "ERROR", JOptionPane.ERROR_MESSAGE);
+            errorMessage("Please select a valid mood type.");
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Please enter a positive "
-                            + "number for your entry ID", "ERROR", JOptionPane.ERROR_MESSAGE);
+            errorMessage("Please enter a number for your entry ID.");
         }
 
     }
 
     //MODIFIES: this
-    //EFFECTS: creates a sequence of dialog boxes to get user input for adding an entry
-    private void addEntryDialogSequence() {
-        MoodType[] possibilities = {MoodType.Happy, MoodType.Scared, MoodType.Angry, MoodType.Disgusted, MoodType.Sad};
-        content = (String)JOptionPane.showInputDialog(this, "Write your entry below:",
-                "Add Entry 1/3", JOptionPane.PLAIN_MESSAGE, null, null, null);
-        mood = (MoodType)JOptionPane.showInputDialog(this, "Categorize your entry "
-                + "as one of the following:", "Add Entry 2/3", JOptionPane.PLAIN_MESSAGE, null, possibilities,
-                MoodType.Happy);
-        idNumber = (String)JOptionPane.showInputDialog(this, "PLease enter an ID number "
-                + "for your entry:", "Add Entry 3/3", JOptionPane.PLAIN_MESSAGE, null,
-                null, null);
-    }
-
-    //MODIFIES: this
     //EFFECTS: prompts the user to remove an entry from their journal
     private void removeAction() {
-        idNumber = (String)JOptionPane.showInputDialog(this,
-                "Enter the ID Number of the entry you would like to remove:", "Remove Entry",
-                JOptionPane.PLAIN_MESSAGE, null, null, null);
-
         try {
+            String idNumber = (String) JOptionPane.showInputDialog(this,
+                    "Enter the ID Number of the entry you would like to remove:", "Remove Entry",
+                    JOptionPane.PLAIN_MESSAGE, null, null, null);
             int intIdNumber = Integer.parseInt(idNumber);
             actions.removeAction(intIdNumber);
         } catch (RemoveEntryNotInJournalException e) {
-            JOptionPane.showMessageDialog(this, "The entry ID you entered is "
-                            + "not in your journal.",
-                    "ERROR", JOptionPane.ERROR_MESSAGE);
+            errorMessage("The entry ID you entered is not in your journal.");
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Please enter a number",
-                    "ERROR", JOptionPane.ERROR_MESSAGE);
+            errorMessage("Please enter a number.");
         }
     }
 
@@ -145,8 +123,7 @@ public class ActionPanel extends JPanel implements ActionListener {
         try {
             actions.saveAction();
         } catch (FileNotFoundException ex) {
-            JOptionPane.showMessageDialog(this, "File not found",
-                    "ERROR", JOptionPane.ERROR_MESSAGE);
+            errorMessage("File not found.");
         }
     }
 
@@ -156,8 +133,12 @@ public class ActionPanel extends JPanel implements ActionListener {
         try {
             actions.loadAction();
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "There was an error in loading your journal",
-                    "ERROR", JOptionPane.ERROR_MESSAGE);
+            errorMessage("There was an error in loading your journal.");
         }
+    }
+
+    //EFFECTS: shows an error dialog box with the given message
+    private void errorMessage(String message) {
+        JOptionPane.showMessageDialog(this, message, "ERROR", JOptionPane.ERROR_MESSAGE);
     }
 }

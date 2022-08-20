@@ -1,6 +1,8 @@
-package ui;
+package ui.gui;
 
 import model.Journal;
+import ui.gui.BarGraphPanel;
+import ui.gui.EntryPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,10 +22,12 @@ public class MainPanel extends JPanel {
         add(barGraphPanel);
     }
 
+    //EFFECTS: returns the associated entryPanel
     public EntryPanel getEntryPanel() {
         return entryPanel;
     }
 
+    //EFFECTS: returns the associated barGraphPanel
     public BarGraphPanel getBarGraphPanel() {
         return barGraphPanel;
     }
