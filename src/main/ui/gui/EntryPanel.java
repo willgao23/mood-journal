@@ -5,9 +5,8 @@ import model.Journal;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.*;
 import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
 
 // Represents the panel where the journal entries are displayed
 public class EntryPanel extends JPanel implements Observer {
@@ -70,6 +69,7 @@ public class EntryPanel extends JPanel implements Observer {
 
     //EFFECTS: returns given list of entries as a formatted string
     private String entriesToString(List<Entry> entries) {
+        Collections.sort(entries, Comparator.comparingInt((Entry e) -> e.getIdNumber()));
         String entryString = "";
 
         for (Entry e : entries) {

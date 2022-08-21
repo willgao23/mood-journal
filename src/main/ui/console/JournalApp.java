@@ -103,6 +103,7 @@ public class JournalApp {
         try {
             Entry entry = new Entry(content, idNumber, mood);
             if (myJournal.addEntry(entry)) {
+                Collections.sort(myJournal.getEntries(), Comparator.comparingInt((Entry e) -> e.getIdNumber()));
                 System.out.println("\nEntry " + idNumber + " has been added to your mood journal.");
             } else {
                 System.out.println("\nThere is already an entry with that ID number in your journal.");
