@@ -1,9 +1,9 @@
 package ui.gui;
 
+import exceptions.ChangeEntryNotInJournalException;
 import exceptions.EmptyContentException;
 import exceptions.InvalidMoodException;
 import exceptions.NegativeIDException;
-import exceptions.RemoveEntryNotInJournalException;
 import model.Journal;
 import model.MoodType;
 
@@ -14,13 +14,14 @@ import java.io.FileNotFoundException;
 
 // Represents the panel where all the actionable events are displayed and handled
 public class ActionPanel extends JPanel implements ActionListener {
-    private static final int BTTN_WIDTH = 200;
-    private static final int BTTN_HEIGHT = 50;
+    private static final int BTTN_WIDTH = 150;
+    private static final int BTTN_HEIGHT = 40;
     private static final Color primary = new Color(167, 190, 211);
     private static final Color highlight = new Color(255, 215, 112);
     private Actions actions;
     private JButton addButton;
     private JButton removeButton;
+    private JButton updateButton;
     private JButton saveButton;
     private JButton loadButton;
 
@@ -30,11 +31,14 @@ public class ActionPanel extends JPanel implements ActionListener {
         actions.addObserver(mp.getEntryPanel());
         actions.addObserver(mp.getBarGraphPanel());
         setBackground(primary);
+        setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
 
         addButton = new JButton("Add Entry");
         addButton.setActionCommand("add");
         removeButton = new JButton("Remove Entry");
         removeButton.setActionCommand("remove");
+        updateButton = new JButton("Edit Entry");
+        updateButton.setActionCommand("edit");
         saveButton = new JButton("Save Journal");
         saveButton.setActionCommand("save");
         loadButton = new JButton("Load Journal");
@@ -42,6 +46,7 @@ public class ActionPanel extends JPanel implements ActionListener {
 
         initializeButton(addButton);
         initializeButton(removeButton);
+        initializeButton(updateButton);
         initializeButton(saveButton);
         initializeButton(loadButton);
 
@@ -67,10 +72,40 @@ public class ActionPanel extends JPanel implements ActionListener {
             addAction();
         } else if (e.getActionCommand().equals("remove")) {
             removeAction();
+        } else if (e.getActionCommand().equals("edit")) {
+            editAction();
         } else if (e.getActionCommand().equals("save")) {
             saveAction();
         } else {
             loadAction();
+        }
+    }
+
+    //MODIFIES: this
+    //EFFECTS: prompts the user to edit an entry in their journal
+    private void editAction() {
+        try {
+            MoodType[] possibilities = {MoodType.Happy, MoodType.Scared,
+                    MoodType.Angry, MoodType.Disgusted, MoodType.Sad};
+            String idNumber = (String) JOptionPane.showInputDialog(this,
+                    "Enter the ID Number of the entry you would like to update:", "Update Entry 1/3",
+                    JOptionPane.PLAIN_MESSAGE, null, null, null);
+            String content = (String) JOptionPane.showInputDialog(this,
+                    "Write the new content of entry " + idNumber + " below:", "Update Entry 2/3",
+                    JOptionPane.PLAIN_MESSAGE, null, null, null);
+            MoodType mood = (MoodType) JOptionPane.showInputDialog(this, "Select the new "
+                    + "category of entry " + idNumber + ":", "Update Entry 3/3", JOptionPane.PLAIN_MESSAGE,
+                    null, possibilities, MoodType.Happy);
+            int intIdNumber = Integer.parseInt(idNumber);
+            actions.editAction(content, intIdNumber, mood);
+        } catch (EmptyContentException e) {
+            errorMessage("Please do not leave the updated content of your entry empty.");
+        } catch (InvalidMoodException e) {
+            errorMessage("Please select a valid mood type for your updated entry");
+        } catch (NumberFormatException e) {
+            errorMessage("Please enter a number for your entry ID.");
+        } catch (ChangeEntryNotInJournalException e) {
+            errorMessage("The entry ID you entered is not in your journal.");
         }
     }
 
@@ -111,7 +146,7 @@ public class ActionPanel extends JPanel implements ActionListener {
                     JOptionPane.PLAIN_MESSAGE, null, null, null);
             int intIdNumber = Integer.parseInt(idNumber);
             actions.removeAction(intIdNumber);
-        } catch (RemoveEntryNotInJournalException e) {
+        } catch (ChangeEntryNotInJournalException e) {
             errorMessage("The entry ID you entered is not in your journal.");
         } catch (NumberFormatException e) {
             errorMessage("Please enter a number.");

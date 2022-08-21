@@ -1,11 +1,13 @@
 package model;
 
 import exceptions.*;
+import javafx.collections.SetChangeListener;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import static model.MoodType.*;
@@ -36,19 +38,44 @@ public class Journal implements Writable {
     }
 
     //MODIFIES: this
+    //EFFECTS: edits the entry with the given ID with the given mood and content
+    public void editEntry(String content, int idNumber, MoodType mood) throws EmptyContentException,
+            InvalidMoodException, ChangeEntryNotInJournalException {
+        boolean hasEdited = false;
+
+        for (Entry e : journalEntries) {
+            if (e.getIdNumber() == idNumber) {
+                e.setContent(content);
+                e.setMood(mood);
+                hasEdited = true;
+                Event editEvent = new Event("Entry edited in journal");
+                EventLog.getInstance().logEvent(editEvent);
+            }
+        }
+
+        if (!hasEdited) {
+            throw new ChangeEntryNotInJournalException();
+        }
+    }
+
+    //MODIFIES: this
     //EFFECTS: remove the entry with the given ID from the journal
-    //throws RemoveEntryNotInJournalException if there is no entry with the given ID in the journal
-    public void removeEntry(int id) throws RemoveEntryNotInJournalException {
+    //throws ChangeEntryNotInJournalException if there is no entry with the given ID in the journal
+    public void removeEntry(int id) throws ChangeEntryNotInJournalException {
         int initialSize = journalEntries.size();
-        for (int i = 0; i < journalEntries.size(); i++) {
-            if (journalEntries.get(i).getIdNumber() == id) {
-                journalEntries.remove(i);
+
+        Iterator<Entry> itr = journalEntries.iterator();
+        while (itr.hasNext()) {
+            Entry next = itr.next();
+            if (next.getIdNumber() == id) {
+                itr.remove();
                 Event removeEvent = new Event("Entry removed from journal");
                 EventLog.getInstance().logEvent(removeEvent);
             }
         }
+
         if (initialSize == journalEntries.size()) {
-            throw new RemoveEntryNotInJournalException();
+            throw new ChangeEntryNotInJournalException();
         }
     }
 

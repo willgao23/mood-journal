@@ -1,9 +1,9 @@
 package ui.gui;
 
+import exceptions.ChangeEntryNotInJournalException;
 import exceptions.EmptyContentException;
 import exceptions.InvalidMoodException;
 import exceptions.NegativeIDException;
-import exceptions.RemoveEntryNotInJournalException;
 import model.Entry;
 import model.Journal;
 import model.MoodType;
@@ -41,8 +41,17 @@ public class Actions extends Observable {
 
     //MODIFIES: this
     //EFFECTS: removes an entry with the given id number from the journal
-    public void removeAction(int intIdNumber) throws RemoveEntryNotInJournalException {
+    public void removeAction(int intIdNumber) throws ChangeEntryNotInJournalException {
         journal.removeEntry(intIdNumber);
+        setChanged();
+        notifyObservers(journal);
+    }
+
+    //MODIFIES: this
+    //EFFECTS: edits the entry with the given id number with the given content and mood
+    public void editAction(String content, int idNumber, MoodType mood) throws InvalidMoodException,
+            EmptyContentException, ChangeEntryNotInJournalException {
+        journal.editEntry(content, idNumber, mood);
         setChanged();
         notifyObservers(journal);
     }

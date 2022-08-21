@@ -63,6 +63,7 @@ public class JournalApp {
         System.out.println("\ta - add a journal entry");
         System.out.println("\tv - view past entries");
         System.out.println("\tr - remove a past entry");
+        System.out.println("\te - edit a past entry");
         System.out.println("\ts - save journal to file");
         System.out.println("\tl - load journal from file");
         System.out.println("\tq - quit");
@@ -77,12 +78,39 @@ public class JournalApp {
             doViewPastEntries();
         } else if (command.equals("r")) {
             doRemovePastEntry();
+        } else if (command.equals("e")) {
+            doEditEntry();
         } else if (command.equals("s")) {
             saveJournal();
         } else if (command.equals("l")) {
             loadJournal();
         } else {
             System.out.println("Please enter a valid command");
+        }
+    }
+
+    //MODIFIES: this
+    //EFFECTS: prompts the user to edit an entry in their journal
+    private void doEditEntry() {
+        System.out.println("\nYou selected: edit a journal entry");
+        System.out.println("Enter the ID of the entry you would like to edit:");
+        int id = input.nextInt();
+
+        System.out.println("\nWrite the new content of entry " + id + " below");
+        String content = input.next();
+
+        System.out.println("\nChoose the new mood of entry " + id + ":");
+        printMoodList();
+        MoodType mood = getMoodFromInput(input.nextInt());
+
+        try {
+            myJournal.editEntry(content, id, mood);
+        } catch (EmptyContentException e) {
+            System.out.println("\nPlease do not leave the content of your entry empty.");
+        } catch (InvalidMoodException e) {
+            System.out.println("\nPlease select an valid mood type.");
+        } catch (ChangeEntryNotInJournalException e) {
+            System.out.println("\nPlease choose an entry ID that is already in your journal.");
         }
     }
 
@@ -196,7 +224,7 @@ public class JournalApp {
         try {
             myJournal.removeEntry(inputInt);
             System.out.println("\nEntry " + inputInt + " has been removed from your mood journal.");
-        } catch (RemoveEntryNotInJournalException e) {
+        } catch (ChangeEntryNotInJournalException e) {
             System.out.println("\nThe entry ID you entered is not in your journal.");
         }
     }

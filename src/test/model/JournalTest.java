@@ -66,8 +66,8 @@ public class JournalTest {
         testJournal.addEntry(testEntry1);
         try {
             testJournal.removeEntry(111);
-        } catch (RemoveEntryNotInJournalException e) {
-            fail("Unexpected RemoveEntryNotInJournalException");
+        } catch (ChangeEntryNotInJournalException e) {
+            fail("Unexpected ChangeEntryNotInJournalException");
         }
 
         assertEquals(0, testJournal.getEntries().size());
@@ -80,8 +80,8 @@ public class JournalTest {
         try {
             testJournal.removeEntry(111);
             testJournal.removeEntry(112);
-        } catch (RemoveEntryNotInJournalException e) {
-            fail("Unexpected RemoveEntryNotInJournalException");
+        } catch (ChangeEntryNotInJournalException e) {
+            fail("Unexpected ChangeEntryNotInJournalException");
         }
 
         assertEquals(0, testJournal.getEntries().size());
@@ -93,8 +93,8 @@ public class JournalTest {
 
         try {
             testJournal.removeEntry(112);
-            fail("RemoveEntryNotInJournalException was not thrown!");
-        } catch (RemoveEntryNotInJournalException e) {
+            fail("ChangeEntryNotInJournalException was not thrown!");
+        } catch (ChangeEntryNotInJournalException e) {
 
         }
 
